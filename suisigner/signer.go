@@ -26,7 +26,7 @@ var (
 
 // FIXME support more than ed25519
 type Signer struct {
-	ed25519Keypair *KeypairEd25519
+	Ed25519Keypair *KeypairEd25519
 	// secp256k1Keypair *KeypairSecp256k1
 	Address *sui.Address
 }
@@ -52,7 +52,7 @@ func NewSigner(seed []byte, flag KeySchemeFlag) *Signer {
 	addr := "0x" + hex.EncodeToString(addrBytes[:])
 
 	return &Signer{
-		ed25519Keypair: &KeypairEd25519{
+		Ed25519Keypair: &KeypairEd25519{
 			PriKey: prikey,
 			PubKey: pubkey,
 		},
@@ -85,8 +85,8 @@ func NewSignerWithMnemonic(mnemonic string, flag KeySchemeFlag) (*Signer, error)
 
 func (s *Signer) PrivateKey() []byte {
 	switch {
-	case s.ed25519Keypair != nil:
-		return s.ed25519Keypair.PriKey
+	case s.Ed25519Keypair != nil:
+		return s.Ed25519Keypair.PriKey
 	default:
 		return nil
 	}
@@ -94,8 +94,8 @@ func (s *Signer) PrivateKey() []byte {
 
 func (s *Signer) PublicKey() []byte {
 	switch {
-	case s.ed25519Keypair != nil:
-		return s.ed25519Keypair.PubKey
+	case s.Ed25519Keypair != nil:
+		return s.Ed25519Keypair.PubKey
 	default:
 		return nil
 	}

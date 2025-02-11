@@ -78,12 +78,12 @@ func (s *Signature) UnmarshalJSON(data []byte) error {
 }
 
 func NewEd25519SuiSignature(s *Signer, msg []byte) *Ed25519SuiSignature {
-	sig := ed25519.Sign(s.ed25519Keypair.PriKey, msg)
+	sig := ed25519.Sign(s.Ed25519Keypair.PriKey, msg)
 
 	sigBuffer := bytes.NewBuffer([]byte{})
 	sigBuffer.WriteByte(byte(KeySchemeFlagEd25519))
 	sigBuffer.Write(sig[:])
-	sigBuffer.Write(s.ed25519Keypair.PubKey)
+	sigBuffer.Write(s.Ed25519Keypair.PubKey)
 
 	return &Ed25519SuiSignature{
 		Signature: [SizeEd25519SuiSignature]byte(sigBuffer.Bytes()),
